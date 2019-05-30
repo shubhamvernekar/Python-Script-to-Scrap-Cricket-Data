@@ -20,13 +20,10 @@ soup = BeautifulSoup(response.text, 'html.parser')
 target = soup.find("div",{'id':"recteam"})
 target = target.findAll('ul',{'class':'Record'})
 target1 = target[0].findAll('a',href=True, text=True)
-target2 = target[1].findAll('a',href=True, text=True)
 teamid = []
 start = '?'
 end = ';'
 for i in target1:
-    teamid.append((i['href'].split(start))[1].split(end)[0])
-for i in target2:
     teamid.append((i['href'].split(start))[1].split(end)[0])
 
 print('Opreation In Process: It had to open >3000 links. So it might take a long')
@@ -52,6 +49,7 @@ for i in teamid:
         prun.append(columns[5].text)
     print('.')
 print('50% of process is completed..')
+
 #function to get players score each year   
 def cummulify(url):
     response = requests.get(url)
@@ -82,6 +80,7 @@ def cummulify(url):
 linkStart = 'http://stats.espncricinfo.com/ci/engine/player/'
 linkEnd = '.html?class=2;template=results;type=batting'
 
+print(str(len(pId))+" Number of Players to be processed")
 for i in pId:
     link = linkStart + i + linkEnd
     cummulify(link)
